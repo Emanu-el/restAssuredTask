@@ -33,9 +33,9 @@ public class RestAssuredExample {
                 .extract().as(Post.class);
 
         System.out.println(post.getUserId());
-        System.out.println(post.getId());
-        System.out.println(post.getTitle());
-        System.out.println(post.getBody());
+//        System.out.println(post.getId());
+//        System.out.println(post.getTitle());
+//        System.out.println(post.getBody());
 
 
     }
