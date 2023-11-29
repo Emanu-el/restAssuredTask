@@ -3,6 +3,7 @@ package requests;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import models.Post;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -15,11 +16,12 @@ public class RestAssuredExample {
     private static final String BASE_URL = "https://jsonplaceholder.typicode.com/";
 
     @Test
-    public void playground(){
+    @Parameters({"baseUrl"})
+    public void playground(String baseUrl){
         //get the post24 and check for userId and title
         Post post = RestAssured
                 .given()
-                .baseUri(BASE_URL)
+                .baseUri(baseUrl)
                 .header("Content-Type", "application/json")
                 .when()
                 .get("/posts/{id}", 24)
@@ -36,11 +38,11 @@ public class RestAssuredExample {
         System.out.println(post.getBody());
 
 
-
     }
 
     @Test
-    public void testJsonPlaceholderApi() {
+    @Parameters ({"postID"})
+    public void testJsonPlaceholderApi( int postID) {
         // Task 1: Make a GET request to retrieve a list of posts
         given()
                 .baseUri(BASE_URL)
@@ -66,7 +68,7 @@ public class RestAssuredExample {
         given()
                 .baseUri(BASE_URL)
                 .when()
-                .get("/posts/100") // Assuming the new post has ID 100
+                .get("/posts/{id}", postID) // Assuming the new post has ID 100
                 .then()
                 .statusCode(200)
                 .log().all();
