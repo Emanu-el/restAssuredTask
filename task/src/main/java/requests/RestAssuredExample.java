@@ -1,7 +1,12 @@
+package requests;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import models.Post;
 import org.testng.annotations.Test;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
 public class RestAssuredExample {
@@ -11,23 +16,33 @@ public class RestAssuredExample {
 
     @Test
     public void playground(){
-        //get the post24
-        RestAssured
-                .given().baseUri(BASE_URL)
+        //get the post24 and check for userId and title
+        Post post = RestAssured
+                .given()
+                .baseUri(BASE_URL)
+                .header("Content-Type", "application/json")
                 .when()
                 .get("/posts/{id}", 24)
                 .then()
                 .statusCode(200)
                 .body("userId", equalTo(3))
-                .log().all();
+                .body("title", containsString("labore sunt dolores incidunt"))
+                .log().all()
+                .extract().as(Post.class);
+
+        System.out.println(post.getUserId());
+        System.out.println(post.getId());
+        System.out.println(post.getTitle());
+        System.out.println(post.getBody());
+
+
 
     }
 
     @Test
     public void testJsonPlaceholderApi() {
         // Task 1: Make a GET request to retrieve a list of posts
-        RestAssured
-                .given()
+        given()
                 .baseUri(BASE_URL)
                 .when()
                 .get("/posts")
@@ -37,8 +52,7 @@ public class RestAssuredExample {
 
         // Task 2: Make a POST request to create a new post
         String requestBody = "{ \"title\": \"New Post\", \"body\": \"This is the body of the new post.\", \"userId\": 1 }";
-        RestAssured
-                .given()
+        given()
                 .baseUri(BASE_URL)
                 .contentType(ContentType.JSON)
                 .body(requestBody)
@@ -49,8 +63,7 @@ public class RestAssuredExample {
                 .log().all();
 
         // Task 3: Make a GET request to retrieve the newly created post
-        RestAssured
-                .given()
+        given()
                 .baseUri(BASE_URL)
                 .when()
                 .get("/posts/100") // Assuming the new post has ID 100
