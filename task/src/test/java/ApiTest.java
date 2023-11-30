@@ -14,8 +14,14 @@ public class ApiTest {
     private static final String BASE_URL = "https://jsonplaceholder.typicode.com/";
 
     @Test
-    @Parameters({"baseUrl"})
-    public void playground(String baseUrl){
+    public void playground(){
+
+        String baseUrl = System.getProperty("baseUrl");
+
+        if (baseUrl == null || baseUrl.isEmpty()) {
+            throw new RuntimeException("baseUrl parameter is not provided");
+        }
+
         //get the post24 and check for userId and title
         Post post = RestAssured
                 .given()
