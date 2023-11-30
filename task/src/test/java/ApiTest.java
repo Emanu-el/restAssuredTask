@@ -1,5 +1,3 @@
-package requests;
-
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import models.Post;
