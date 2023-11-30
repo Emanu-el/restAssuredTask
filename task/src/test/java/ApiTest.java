@@ -19,6 +19,7 @@ public class ApiTest {
         String baseUrl = System.getProperty("baseUrl");
 
         if (baseUrl == null || baseUrl.isEmpty()) {
+            System.out.println("ta vacío");
             throw new RuntimeException("baseUrl parameter is not provided");
         }
 
