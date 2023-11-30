@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
-public class RestAssuredExample {
+public class ApiTest {
 
     // Base URL for JSONPlaceholder API
     private static final String BASE_URL = "https://jsonplaceholder.typicode.com/";

@@ -2,7 +2,7 @@
 <suite name="TestSuite">
     <test name="RestAssuredTest">
         <classes>
-            <class name="requests.RestAssuredExample" />
+            <class name="requests.ApiTest" />
         </classes>
     </test>
 </suite>
