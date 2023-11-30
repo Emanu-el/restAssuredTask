@@ -16,10 +16,9 @@ public class ApiTest {
     @Test
     public void playground(){
 
-        String baseUrl = System.getProperty("baseUrl");
+        String baseUrl = System.getenv("baseUrl");
 
         if (baseUrl == null || baseUrl.isEmpty()) {
-            System.out.println("ta vacío");
             throw new RuntimeException("baseUrl parameter is not provided");
         }
 
@@ -46,8 +45,7 @@ public class ApiTest {
     }
 
     @Test
-    @Parameters ({"postID"})
-    public void testJsonPlaceholderApi( int postID) {
+    public void testJsonPlaceholderApi() {
         // Task 1: Make a GET request to retrieve a list of posts
         given()
                 .baseUri(BASE_URL)
@@ -73,7 +71,7 @@ public class ApiTest {
         given()
                 .baseUri(BASE_URL)
                 .when()
-                .get("/posts/{id}", postID) // Assuming the new post has ID 100
+                .get("/posts/{id}", 24) // Assuming the new post has ID 100
                 .then()
                 .statusCode(200)
                 .log().all();
