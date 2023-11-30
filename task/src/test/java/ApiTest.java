@@ -37,9 +37,9 @@ public class ApiTest {
                 .extract().as(Post.class);
 
         System.out.println(post.getUserId());
-//        System.out.println(post.getId());
-//        System.out.println(post.getTitle());
-//        System.out.println(post.getBody());
+        System.out.println(post.getId());
+        System.out.println(post.getTitle());
+        System.out.println(post.getBody());
 
 
     }
@@ -71,7 +71,7 @@ public class ApiTest {
         given()
                 .baseUri(BASE_URL)
                 .when()
-                .get("/posts/{id}", 24) // Assuming the new post has ID 100
+                .get("/posts/{id}", System.getenv("postID")) // Assuming the new post has ID 100
                 .then()
                 .statusCode(200)
                 .log().all();
