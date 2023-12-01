@@ -1,16 +1,16 @@
 package models;
 
 public class Post {
-    private int userId;
-    private int id;
+    private Integer userId;
+    private Integer id;
     private String title;
     private String body;
 
-    public int getUserId() { return userId; }
-    public void setUserId(int value) { this.userId = value; }
+    public Integer getUserId() { return userId; }
+    public void setUserId(Integer value) { this.userId = value; }
 
-    public int getID() { return id; }
-    public void setID(int value) { this.id = value; }
+    public Integer getId() { return id; }
+    public void setId(Integer value) { this.id = value; }
 
     public String getTitle() { return title; }
     public void setTitle(String value) { this.title = value; }
