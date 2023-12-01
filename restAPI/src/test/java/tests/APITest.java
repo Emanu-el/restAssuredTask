@@ -1,11 +1,11 @@
 package tests;
 
 import io.restassured.response.Response;
-import models.Post;
+import models.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import requests.Requests;
-
+import expected.ExpectedUser;
 public class APITest {
 
     @Test
@@ -61,10 +61,10 @@ public class APITest {
         //Step 4
         response = requests.request4();
         statusCode = response.statusCode();
+        Assert.assertEquals(statusCode, 201, "Status code is not the expected");
         post = response
                 .then()
                 .extract().as(Post.class);
-        Assert.assertEquals(statusCode, 201, "Status code is not the expected");
         Assert.assertEquals(post.getBody(), "This is the body of the new post.", "Body is not the expected one");
         Assert.assertEquals(post.getTitle(), "New Post", "Title is not the expected");
         Assert.assertEquals(post.getUserId(), 1, "User Id is not the expected");
@@ -72,11 +72,40 @@ public class APITest {
 
 
         //Step 5
+        response = requests.request5();
+        statusCode = response.statusCode();
+        Assert.assertEquals(statusCode, 200, "Status code is not the expected");
+        contentType = response.getHeader("Content-Type");
+        Assert.assertEquals(contentType, "application/json; charset=utf-8", "Response is not in JSON format");
+
+        User[] users = response
+                .then()
+                .extract().as(User[].class);
+
+        ExpectedUser expectedUser = new ExpectedUser();
+        User expectedUser1 = expectedUser.getExpectedUser();
+        User responseUser = null;
+
+        for (User user : users){
+            if(user.getID() == 5){
+                responseUser = user;
+                break;
+            }
+        }
+
+        Assert.assertEquals(expectedUser1, responseUser, "User from response doesn't match the expected user");
+
 
 
         //Step 6
+        response = requests.request6();
+        statusCode = response.statusCode();
+        Assert.assertEquals(statusCode, 200, "Status code is not the expected");
+        User user = response
+                .then()
+                .extract().as(User.class);
 
-
+        Assert.assertEquals(responseUser, user, "User from response doesn't match the expected user");
 
     }
 

@@ -43,4 +43,18 @@ public class Requests {
                 .post("/posts");
 
     }
+
+    public Response request5(){
+        return given()
+                .baseUri(baseURL)
+                .when()
+                .get("/users");
+    }
+
+    public Response request6(){
+        return given()
+                .baseUri(baseURL)
+                .when()
+                .get("/users/5");
+    }
 }
