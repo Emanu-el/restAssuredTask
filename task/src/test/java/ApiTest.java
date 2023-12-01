@@ -1,7 +1,8 @@
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import models.Post;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -47,13 +48,19 @@ public class ApiTest {
     @Test
     public void testJsonPlaceholderApi() {
         // Task 1: Make a GET request to retrieve a list of posts
-        given()
+        Response getPostResponse =
+                given()
                 .baseUri(BASE_URL)
                 .when()
-                .get("/posts")
+                .get("/posts");
+
+        getPostResponse
                 .then()
                 .statusCode(200)
-                .log().all(); // Log the response details
+                .log().all() // Log the response details
+                .extract().as(Post.class);
+
+
 
         // Task 2: Make a POST request to create a new post
         String requestBody = "{ \"title\": \"New Post\", \"body\": \"This is the body of the new post.\", \"userId\": 1 }";
