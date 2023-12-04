@@ -13,25 +13,30 @@ public class Requests {
 
     private final String baseURL = ReadJsonUtility.getStringValue("baseURL");
 
+
+
     public Response request1(){
         return given()
                 .baseUri(baseURL)
                 .when()
-                .get("/posts");
+                .get(ReadJsonUtility.getStringValue("postsPath"));
+
     }
 
+    String path2 = String.format("%s%s", ReadJsonUtility.getStringValue("postsPath"), ReadJsonUtility.getStringValue("request2Id"));
     public Response request2(){
         return given()
                 .baseUri(baseURL)
                 .when()
-                .get("/posts/99");
+                .get(path2);
     }
 
+    String path3 = String.format("%s%s", ReadJsonUtility.getStringValue("postsPath"), ReadJsonUtility.getStringValue("request3Id"));
     public Response request3(){
         return given()
                 .baseUri(baseURL)
                 .when()
-                .get("/posts/150");
+                .get(path3);
     }
 
     public Response request4(){
@@ -41,7 +46,7 @@ public class Requests {
                 .contentType(ContentType.JSON)
                 .body(requestBody)
                 .when()
-                .post("/posts");
+                .post(ReadJsonUtility.getStringValue("postsPath"));
 
     }
 
@@ -49,13 +54,14 @@ public class Requests {
         return given()
                 .baseUri(baseURL)
                 .when()
-                .get("/users");
+                .get(ReadJsonUtility.getStringValue("usersPath"));
     }
 
+    String path6 = String.format("%s%s", ReadJsonUtility.getStringValue("usersPath"), ReadJsonUtility.getStringValue("userId"));
     public Response request6(){
         return given()
                 .baseUri(baseURL)
                 .when()
-                .get("/users/5");
+                .get(path6);
     }
 }

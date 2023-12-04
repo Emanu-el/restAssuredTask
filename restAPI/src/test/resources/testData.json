@@ -1,5 +1,7 @@
 {
   "baseURL": "https://jsonplaceholder.typicode.com",
+  "postsPath": "/posts/",
+  "usersPath": "/users/",
   "minimumCharacters": 10,
   "successCode": 200,
   "notFoundCode": 404,
