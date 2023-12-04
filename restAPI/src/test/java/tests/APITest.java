@@ -67,18 +67,18 @@ public class APITest {
         post = response
                 .then()
                 .extract().as(Post.class);
-        Assert.assertEquals(post.getBody(), "This is the body of the new post.", "Body is not the expected one");
-        Assert.assertEquals(post.getTitle(), "New Post", "Title is not the expected");
-        Assert.assertEquals(post.getUserId(), 1, "User Id is not the expected");
+        Assert.assertEquals(post.getBody(), ReadJsonUtility.getStringValue("postBody"), "Body is not the expected one");
+        Assert.assertEquals(post.getTitle(), ReadJsonUtility.getStringValue("postTitle"), "Title is not the expected");
+        Assert.assertEquals(post.getUserId(), ReadJsonUtility.getIntValue("postUserId"), "User Id is not the expected");
         Assert.assertNotNull(post.getId(), "Id value is null");
 
 
         //Step 5
         response = requests.request5();
         statusCode = response.statusCode();
-        Assert.assertEquals(statusCode, 200, "Status code is not the expected");
+        Assert.assertEquals(statusCode, ReadJsonUtility.getIntValue("successCode"), "Status code is not the expected");
         contentType = response.getHeader("Content-Type");
-        Assert.assertEquals(contentType, "application/json; charset=utf-8", "Response is not in JSON format");
+        Assert.assertEquals(contentType, ReadJsonUtility.getStringValue("expectedContentType"), "Response is not in JSON format");
 
         User[] users = response
                 .then()
@@ -89,7 +89,7 @@ public class APITest {
         User responseUser = null;
 
         for (User user : users){
-            if(user.getID() == 5){
+            if(user.getID() == ReadJsonUtility.getIntValue("userId")){
                 responseUser = user;
                 break;
             }
@@ -102,7 +102,7 @@ public class APITest {
         //Step 6
         response = requests.request6();
         statusCode = response.statusCode();
-        Assert.assertEquals(statusCode, 200, "Status code is not the expected");
+        Assert.assertEquals(statusCode, ReadJsonUtility.getIntValue("successCode"), "Status code is not the expected");
         User user = response
                 .then()
                 .extract().as(User.class);
