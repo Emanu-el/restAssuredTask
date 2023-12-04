@@ -1,6 +1,7 @@
 package requests;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import utilities.ReadJsonUtility;
 
 import static io.restassured.RestAssured.given;
 
@@ -10,7 +11,7 @@ public class Requests {
 
     }
 
-    private String baseURL = "https://jsonplaceholder.typicode.com";
+    private final String baseURL = ReadJsonUtility.getStringValue("baseURL");
 
     public Response request1(){
         return given()
