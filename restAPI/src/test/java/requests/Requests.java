@@ -1,4 +1,5 @@
 package requests;
+import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import utilities.ReadJsonUtility;
@@ -40,11 +41,11 @@ public class Requests {
     }
 
     public Response request4(){
-        String requestBody = "{ \"title\": \"New Post\", \"body\": \"This is the body of the new post.\", \"userId\": 1 }";
+        JsonObject post = ReadJsonUtility.getJsonValue("post");
         return given()
                 .baseUri(baseURL)
                 .contentType(ContentType.JSON)
-                .body(requestBody)
+                .body(post.toString())
                 .when()
                 .post(ReadJsonUtility.getStringValue("postsPath"));
 

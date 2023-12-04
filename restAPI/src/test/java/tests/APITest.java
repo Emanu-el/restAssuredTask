@@ -1,5 +1,6 @@
 package tests;
 
+import com.google.gson.JsonObject;
 import io.restassured.response.Response;
 import models.*;
 import org.testng.Assert;
@@ -67,9 +68,10 @@ public class APITest {
         post = response
                 .then()
                 .extract().as(Post.class);
-        Assert.assertEquals(post.getBody(), ReadJsonUtility.getStringValue("postBody"), "Body is not the expected one");
-        Assert.assertEquals(post.getTitle(), ReadJsonUtility.getStringValue("postTitle"), "Title is not the expected");
-        Assert.assertEquals(post.getUserId(), ReadJsonUtility.getIntValue("postUserId"), "User Id is not the expected");
+        JsonObject expectedPost = ReadJsonUtility.getJsonValue("post");
+        Assert.assertEquals(post.getBody(), expectedPost.get("body").getAsString(), "Body is not the expected one");
+        Assert.assertEquals(post.getTitle(), expectedPost.get("title").getAsString(), "Title is not the expected");
+        Assert.assertEquals(post.getUserId(), expectedPost.get("userId").getAsInt(), "User Id is not the expected");
         Assert.assertNotNull(post.getId(), "Id value is null");
 
 

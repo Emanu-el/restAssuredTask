@@ -9,12 +9,14 @@
   "expectedUserId": 10,
   "request2Id": 99,
   "request3Id": 150,
-  "postUserId": 1,
-  "postTitle": "New Post",
-  "postBody": "This is the body of the new post.",
   "userId": 5,
   "emptyResponseBody": "{}",
   "expectedContentType": "application/json; charset=utf-8",
+  "post": {
+    "userId": 1,
+    "title": "New Post",
+    "body": "This is the body of the new post."
+  },
   "user5":{
     "id": 5,
     "name": "Chelsey Dietrich",
